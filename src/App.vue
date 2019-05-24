@@ -1,12 +1,37 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+  import { getBannerList, getTabBarList } from '@/api/getHomeData'
+  export default {
+    name: 'app',
+    data() {
+      return {
+        bannerList: []
+      }
+    },
+    created() {
+      this._getBannerList()
+      this._getTabBarList()
+    },
+    methods: {
+      _getBannerList() {
+        getBannerList().then((res) => {
+          console.log(res)
+        })
+      },
+      _getTabBarList() {
+        getTabBarList().then(({data}) => {
+          console.log(data['127180'])
+        })
+      }
+    }
+  }
+</script>
+
 <style lang="stylus">
 #app
   font-family 'Avenir', Helvetica, Arial, sans-serif
